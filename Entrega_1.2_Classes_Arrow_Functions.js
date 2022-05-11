@@ -1,6 +1,7 @@
 //nivel 1, ejercicio 1
 
-(() => console.log(1 + 2))()
+//(() => console.log(1 + 2))()
+console.log((() => 1 + 2)())
 
 //nivel 2, ejercicio 1
 
@@ -29,30 +30,41 @@ daniel.dirNom()
 
 //nivel 3, ejercicio 1
 
-class People {
+class Animal {
+
     constructor() {
-        if (this.constructor == People) {
-            throw new Error("Error clase Abstracta.");
-        }
+      if (this.constructor == Animal) {
+        throw new Error("Abstract classes can't be instantiated.");
+      }
     }
-    info() {
-        throw new Error("Error metodo Abstracto");
+  
+    say() {
+      throw new Error("Method 'say()' must be implemented.");
     }
 }
 
-class Teacher extends People {
-    info(rol) {
+function createObj(name, tipo){
+    const Obj = function() {
+    Animal.apply(this, arguments);
+    
+};
+Obj.prototype = Object.create(Animal.prototype);
+Obj.prototype.constructor = Obj;
+Obj.prototype.name = name
+Obj.prototype.say = function() {
+    console.log(tipo);
+}
+    return Obj
+}
 
-        console.log(`I am a ${rol} teacher`);
-    }
-}
-function createObj() {
-    const teacher = new Teacher()
-    return teacher
-}
-const teacher1 = createObj();
-const teacher2 = createObj();
-const teacher3 = createObj();
-teacher1.info('Math');
-teacher1.info('Geography');
-teacher1.info('NodeJS');
+const dog = createObj('roy','guau')
+console.log(dog.prototype.name)
+dog.prototype.say()
+
+const cat = createObj('misha', 'miau')
+console.log(cat.prototype.name)
+cat.prototype.say()
+
+const bird = createObj('piolin', 'piu piu')
+console.log(bird.prototype.name)
+bird.prototype.say()
