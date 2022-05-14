@@ -28,7 +28,7 @@ prueba2
 .catch(function(err){
     console.log(err.message)
 })
-
+ 
 
 //nivel 1, ejercicio 2
 
@@ -48,7 +48,7 @@ const mayorOMenor = (num, printFunction) => {
 
 mayorOMenor(5, printMessage)
 mayorOMenor(15, printMessage)
-mayorOMenor(10, printMessage)
+mayorOMenor(10, printMessage) 
 
 //nivel 2, ejercicio 1
 
@@ -68,7 +68,7 @@ let salaries = [{
     salary: 4000
 }, {
     id: 2,
-    salary: 1000
+   salary: 1000
 }, {
     id: 3,
     salary: 2000
@@ -90,6 +90,48 @@ const getEmployee = (num) =>{
      })
 }
 
-getEmployee(2)
+ getEmployee(2)
 .then(value=> { console.log(value)})
-.catch(err => { console.log (err.message)})
+.catch(err => { console.log (err.message)}) 
+
+//nivel 2, ejercicio 2
+
+const getSalary = (employe) => {
+    return new Promise((resolve, reject) =>{
+        let salaryEmploye
+        for (let salary of salaries){
+            if(salary.id === employe.id){
+                salaryEmploye = salary.salary
+            }
+        }
+        if (salaryEmploye){
+            resolve(salaryEmploye)
+        } else {
+            reject(new Error('error'))
+        }
+    })
+}
+
+ getSalary(salaries[1])
+.then(salary => console.log(salary))
+.catch(err => console.log(err.message))  
+
+//nivel 2, ejercicio 3
+
+getEmployee(2)
+.then(employee => {
+    console.log(employee.name)
+    return getSalary(employee)})
+.then(salary => {
+    console.log(salary)
+}).catch(err => console.log(err.message))
+
+//nivel 3, ejercicio 1
+
+getEmployee(5)
+.then(employee => {
+    console.log(employee.name)
+    return getSalary(employee)})
+.then(salary => {
+    console.log(salary)
+}).catch(err => console.log(err))  
