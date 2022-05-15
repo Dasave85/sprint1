@@ -114,3 +114,4 @@ addDoubles(1, 2, 3);
 
 getEmployee(4).catch((err) => console.log(err));
 getSalary(3).catch((err) => console.log(err));
+employeeData('hola')
