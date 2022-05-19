@@ -4,9 +4,6 @@ const { exec } = require('child_process');
 const os = require('os');
 const crypto = require('crypto')
 
-
-
-
 // nivel 1 ejercicio 1
 
 function createFile(name, text) {
@@ -93,7 +90,7 @@ exec(command, {cwd: directory}, (err, stdout, stderr) => {
 
 //nivel 3, ejercicio 1, parte 1
 
-async function encriptedFiles() {
+async function encodedFiles() {
     const text = new Promise((resolve) => {
         fs.readFile('./myFile.txt', 'utf8', (err, data) => {
             resolve(data)
@@ -118,33 +115,41 @@ async function encriptedFiles() {
 
 }
 
-//encriptedFiles()
+//encodedFiles()
 
 //nivel 3, ejercicio 1, parte 2
 
-async function encriptedFilesPart2() {
+async function encriptedFile(file) {
 
-    //file hexadecimal
     const text = new Promise((resolve) => {
-        fs.readFile('./Hexadecimal.txt', 'utf8', (err, data) => {
+        fs.readFile(file, 'utf8', (err, data) => {
             resolve(data)
         })
     })
 
-    let textInHexadecimal = await text
+    let textFile = await text
 
 const iv = crypto.randomBytes(16).toString("hex").slice(0, 16);
-const key = "12345678123456781234567812345678"
-const encrypter = crypto.createCipheriv("aes-256-cbc", key, iv);
-let encryptedMsg = encrypter.update(textInHexadecimal, "utf8", "hex")
+const key = "123456781234567812345678"
+const encrypter = crypto.createCipheriv('aes-192-cbc', key, iv);
+let encryptedMsg = encrypter.update(textFile, "utf8", "hex")
 encryptedMsg += encrypter.final("hex");
-console.log("Encrypted message: " + encryptedMsg);
+
+
+createFile(file, encryptedMsg)
 
 // desencriptar
-const decrypter = crypto.createDecipheriv("aes-256-cbc", key, iv);
+/*  const decrypter = crypto.createDecipheriv("aes-192-cbc", key, iv);
 let decryptedMsg = decrypter.update(encryptedMsg, "hex", "utf8");
 decryptedMsg += decrypter.final("utf8");
 
-console.log("Decrypted message: " + decryptedMsg);
+console.log("Decrypted message: " + decryptedMsg); */
+
 }
-encriptedFilesPart2()
+
+function encryptedFiles(){
+    encriptedFile('./hexadecimal.txt')
+    encriptedFile('./base64.txt')
+}
+
+encryptedFiles()
