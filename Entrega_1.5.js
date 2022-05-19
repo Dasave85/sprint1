@@ -2,13 +2,16 @@ const fs = require('fs')
 const archiver = require('archiver')
 const { exec } = require('child_process');
 const os = require('os');
-const { getDiffieHellman } = require('crypto');
+const crypto = require('crypto')
+
+
+
 
 // nivel 1 ejercicio 1
 
-function createFile(){
-    fs.writeFile('./myFile.txt', 'Buenos dias', (err)=>{
-        if (err){
+function createFile(name, text) {
+    fs.writeFile(name, text, (err) => {
+        if (err) {
             console.log(err)
         } else {
             console.log('archivo creado')
@@ -16,15 +19,15 @@ function createFile(){
     })
 }
 
-//createFile()
+//createFile('./myFile.txt', 'Buenos dias')
 
 //nivel 1, ejercicio 2
 
-function readFile(){
-    fs.readFile('./myFile.txt', 'utf8',  (err, data) =>{
-        if(err){
+function readFile() {
+    fs.readFile('./myFile.txt', 'utf8', (err, data) => {
+        if (err) {
             console.log(err)
-        } else{
+        } else {
             console.log(data)
         }
     })
@@ -34,13 +37,13 @@ function readFile(){
 
 //nivel 1, ejercicio 3
 
-function compressFile(){
+function compressFile() {
     let output = fs.createWriteStream('./myZipFile.zip')
     let fileZip = archiver('zip')
 
     fileZip.pipe(output)
-    fileZip.append(fs.createReadStream('./myFile.txt'), {name: 'myFile.txt'})
-   
+    fileZip.append(fs.createReadStream('./myFile.txt'), { name: 'myFile.txt' })
+
     fileZip.finalize()
     console.log('Archivo comprimido')
 }
@@ -49,10 +52,10 @@ function compressFile(){
 
 //nivel 2, ejercicio 1
 
-function printRecursive(){
+function printRecursive() {
     const print = setInterval(() => console.log('Hola Mundo'), 1000)
 
-    setTimeout(()=> {
+    setTimeout(() => {
         clearInterval(print)
     }, 12000)
 }
@@ -88,17 +91,60 @@ exec(command, {cwd: directory}, (err, stdout, stderr) => {
 
 //listDirectory()
 
-//nivel 3, ejercicio 1
+//nivel 3, ejercicio 1, parte 1
 
-function encryptedFiles(){
-    
-   
+async function encriptedFiles() {
+    const text = new Promise((resolve) => {
+        fs.readFile('./myFile.txt', 'utf8', (err, data) => {
+            resolve(data)
+        })
+    })
+
+    let textInString = await text
+
+    //file hexadecimal
     let textHexa = ''
-
-/*     for (let i = 0; i < textAscii.length; i++){
-        textHexa += Number(textAscii.charCodeAt(i)).toString(16)
+    for (let i = 0; i < textInString.length; i++) {
+        textHexa += Number(textInString.charCodeAt(i).toString(16))
     }
-    console.log(textHexa) */
+    createFile('./Hexadecimal.txt', textHexa)
+
+    //file base64
+
+    let buff = new Buffer.from(textInString)
+    let textInBase64 = buff.toString('base64')
+    createFile('./base64.txt', textInBase64)
+
+
 }
 
-encryptedFiles()
+//encriptedFiles()
+
+//nivel 3, ejercicio 1, parte 2
+
+async function encriptedFilesPart2() {
+
+    //file hexadecimal
+    const text = new Promise((resolve) => {
+        fs.readFile('./Hexadecimal.txt', 'utf8', (err, data) => {
+            resolve(data)
+        })
+    })
+
+    let textInHexadecimal = await text
+
+const iv = crypto.randomBytes(16).toString("hex").slice(0, 16);
+const key = "12345678123456781234567812345678"
+const encrypter = crypto.createCipheriv("aes-256-cbc", key, iv);
+let encryptedMsg = encrypter.update(textInHexadecimal, "utf8", "hex")
+encryptedMsg += encrypter.final("hex");
+console.log("Encrypted message: " + encryptedMsg);
+
+// desencriptar
+const decrypter = crypto.createDecipheriv("aes-256-cbc", key, iv);
+let decryptedMsg = decrypter.update(encryptedMsg, "hex", "utf8");
+decryptedMsg += decrypter.final("utf8");
+
+console.log("Decrypted message: " + decryptedMsg);
+}
+encriptedFilesPart2()
