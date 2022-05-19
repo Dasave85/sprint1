@@ -90,15 +90,31 @@ exec(command, {cwd: directory}, (err, stdout, stderr) => {
 
 //nivel 3, ejercicio 1
 
-function encryptedFiles(){
+//nivel 2, ejercicio 2
+
+function listDirectory() {
+
+    let command = 'dir'
+    let directory = 'C:/Users'
     
-   
-    let textHexa = ''
-
-/*     for (let i = 0; i < textAscii.length; i++){
-        textHexa += Number(textAscii.charCodeAt(i)).toString(16)
+    const platform = os.platform()
+    
+    if(platform !== 'win32'){
+        command = 'ls'
+        directory = '/Users'
     }
-    console.log(textHexa) */
-}
-
-encryptedFiles()
+     
+    exec(command, {cwd: directory}, (err, stdout, stderr) => {
+      if (err) {
+        console.error(`exec error: ${err}`);
+        return;
+      }
+      if (stderr){
+          console.log('stderr: ' + stderr)
+      }
+     
+      console.log(`Ficheros: ${stdout}`);
+    });
+    }
+    
+    //listDirectory()
