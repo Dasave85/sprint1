@@ -132,15 +132,15 @@ async function encryptedFile(file) {
 	let textFile = await text;
 
 	
-	const encrypter = crypto.createCipheriv(algorithm, key, iv);
+	 const encrypter = crypto.createCipheriv(algorithm, key, iv);
 	let encryptedMsg = encrypter.update(textFile, 'utf-8', 'hex');
 	encryptedMsg += encrypter.final('hex');
     console.log('encrypted ' + encryptedMsg)
 	
-	createFile(file, encryptedMsg);
+	createFile(file, encryptedMsg); 
 
 	// desencriptar
-	/*     const decrypter = crypto.createDecipheriv("aes-192-cbc", key, iv);
+	     const decrypter = crypto.createDecipheriv("aes-192-cbc", key, iv);
 let decryptedMsg = decrypter.update(encryptedMsg, "hex", "utf8");
 decryptedMsg += decrypter.final("utf8");
 
@@ -149,8 +149,8 @@ const convert = (from, to) => str => Buffer.from(str, from).toString(to)
 	//const utf8ToHex = convert('utf8', 'hex')
 	const hexToUtf8 = convert('hex', 'utf8')
 	const textDecoded = hexToUtf8(decryptedMsg)
-    console.log('texto inicial: ' + textDecoded) 
- */
+    console.log('texto inicial: ' + textDecoded)  
+ 
 }
 function encryptedFiles() {
 	encryptedFile('./hexadecimal.txt');
@@ -163,19 +163,19 @@ function encryptedFiles() {
 
 async function decryptedFile(file, newFile) {
 	const text = new Promise((resolve) => {
-		fs.readFile(file, 'utf8', (err, data) => {
+		fs.readFile(file, 'utf-8' , (err, data) => {
 			resolve(data);
 		});
 	});
 
-	let textFile = await text;
+	let textCrypted = await text;
 
-	console.log('texto archivo: ' + textFile)
+	console.log('texto archivo: ' + textCrypted)
 
     
 	const decrypter = crypto.createDecipheriv(algorithm, key, iv);
-	let decryptedMsg = decrypter.update(textFile, "hex", "utf8");
-	decryptedMsg += decrypter.final("utf8");
+let decryptedMsg = decrypter.update(textCrypted, "hex", "utf8");
+decryptedMsg += decrypter.final("utf8");
 	console.log('mensaje desencriptado: ' + decryptedMsg)
     
     file === './Hexadecimal.txt' ? decodeHexa(decryptedMsg) : decodeBase64(decryptedMsg)
