@@ -3,7 +3,8 @@ const archiver = require('archiver');
 const { exec } = require('child_process');
 const os = require('os');
 const crypto = require('crypto');
-const iv = crypto.randomBytes(16).toString('hex').slice(0, 16);
+//const iv = crypto.randomBytes(16).toString('hex').slice(0, 16);
+const iv = 'ee2c4f7044f29f29'
 const key = '123456781234567812345678';
 const algorithm = 'aes-192-cbc'
 
@@ -103,18 +104,16 @@ async function encodedFiles() {
 
 	//file hexadecimal
 	const convert = (from, to) => str => Buffer.from(str, from).toString(to)
+
 	const utf8ToHex = convert('utf8', 'hex')
 	const textHexa = utf8ToHex(textInString)
-	/* let textHexa = '';
-	for (let i = 0; i < textInString.length; i++) {
-		textHexa += Number(textInString.charCodeAt(i).toString(16));
-	} */
+	
 	createFile('./Hexadecimal.txt', textHexa);
 
 	//file base64
-
-	let buff = new Buffer.from(textInString);
-	let textInBase64 = buff.toString('base64');
+	const utf8ToBase64 = convert('utf8', 'base64')
+	let textInBase64 = utf8ToBase64(textInString)
+	
 	createFile('./base64.txt', textInBase64);
 }
 
@@ -138,23 +137,11 @@ async function encryptedFile(file) {
     console.log('encrypted ' + encryptedMsg)
 	
 	createFile(file, encryptedMsg); 
+ }
 
-	// desencriptar
-	     const decrypter = crypto.createDecipheriv("aes-192-cbc", key, iv);
-let decryptedMsg = decrypter.update(encryptedMsg, "hex", "utf8");
-decryptedMsg += decrypter.final("utf8");
-
-console.log("Decrypted message: " + decryptedMsg); 
-const convert = (from, to) => str => Buffer.from(str, from).toString(to)
-	//const utf8ToHex = convert('utf8', 'hex')
-	const hexToUtf8 = convert('hex', 'utf8')
-	const textDecoded = hexToUtf8(decryptedMsg)
-    console.log('texto inicial: ' + textDecoded)  
- 
-}
 function encryptedFiles() {
 	encryptedFile('./hexadecimal.txt');
-	//encryptedFile('./base64.txt');
+	encryptedFile('./base64.txt');
 }
 
 //encryptedFiles()
@@ -178,17 +165,32 @@ let decryptedMsg = decrypter.update(textCrypted, "hex", "utf8");
 decryptedMsg += decrypter.final("utf8");
 	console.log('mensaje desencriptado: ' + decryptedMsg)
     
-    file === './Hexadecimal.txt' ? decodeHexa(decryptedMsg) : decodeBase64(decryptedMsg)
+    file === './Hexadecimal.txt' ? decodeHexa(decryptedMsg, newFile) : decodeBase64(decryptedMsg, newFile)
 
 }
 
-function decodeHexa(text){
-    console.log('decrypted ' + text)
+function decodeHexa(text, newFile){
+    
 	const convert = (from, to) => str => Buffer.from(str, from).toString(to)
-	//const utf8ToHex = convert('utf8', 'hex')
 	const hexToUtf8 = convert('hex', 'utf8')
 	const textDecoded = hexToUtf8(text)
-    console.log(textDecoded)
+    console.log('mensaje descodificado: ' + textDecoded)
+
+	createFile(newFile, textDecoded)
 }
 
-decryptedFile('./Hexadecimal.txt')
+function decodeBase64(text, newFile){
+	const convert = (from, to) => str => Buffer.from(str, from).toString(to)
+	const base64ToUtf8 = convert('base64', 'utf8')
+	const textDecoded = base64ToUtf8(text)
+	console.log('mensaje descodificado: ' + textDecoded)
+
+	createFile(newFile, textDecoded)
+}
+
+function decryptedFiles(){
+	decryptedFile('./Hexadecimal.txt', './myFile_copy_1.txt')
+	decryptedFile('./base64.txt', './myFile_copy_2.txt')
+}
+
+decryptedFiles()
