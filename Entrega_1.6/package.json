@@ -1,0 +1,22 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Entrega 1.6",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dasave85/sprint1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dasave85/sprint1/issues"
+  },
+  "homepage": "https://github.com/Dasave85/sprint1#readme",
+  "devDependencies": {
+    "jest": "^28.1.0"
+  }
+}
