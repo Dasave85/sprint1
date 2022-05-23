@@ -3,7 +3,6 @@ const archiver = require('archiver');
 const { exec } = require('child_process');
 const os = require('os');
 const crypto = require('crypto');
-//const iv = crypto.randomBytes(16).toString('hex').slice(0, 16);
 const iv = 'ee2c4f7044f29f29'
 const key = '123456781234567812345678';
 const algorithm = 'aes-192-cbc'
