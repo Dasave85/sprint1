@@ -20,8 +20,6 @@ function createFile(name, text) {
 	});
 }
 
-//createFile('./myFile.txt', 'Buenos dias')
-
 //nivel 1, ejercicio 2
 
 function readFile() {
@@ -33,8 +31,6 @@ function readFile() {
 		}
 	});
 }
-
-//readFile()
 
 //nivel 1, ejercicio 3
 
@@ -49,8 +45,6 @@ function compressFile() {
 	console.log('Archivo comprimido');
 }
 
-//compressFile()
-
 //nivel 2, ejercicio 1
 
 function printRecursive() {
@@ -60,8 +54,6 @@ function printRecursive() {
 		clearInterval(print);
 	}, 12000);
 }
-
-//printRecursive()
 
 //nivel 2, ejercicio 2
 
@@ -89,8 +81,6 @@ function listDirectory() {
 	});
 }
 
-//listDirectory()
-
 //nivel 3, ejercicio 1, parte 1
 
 async function encodedFiles() {
@@ -117,8 +107,6 @@ async function encodedFiles() {
 	createFile('./base64.txt', textInBase64);
 }
 
-//encodedFiles()
-
 //nivel 3, ejercicio 1, parte 2
 
 async function encryptedFile(file) {
@@ -131,7 +119,7 @@ async function encryptedFile(file) {
 	let textFile = await text;
 
 	
-	 const encrypter = crypto.createCipheriv(algorithm, key, iv);
+	const encrypter = crypto.createCipheriv(algorithm, key, iv);
 	let encryptedMsg = encrypter.update(textFile, 'utf-8', 'hex');
 	encryptedMsg += encrypter.final('hex');
     console.log('encrypted ' + encryptedMsg)
@@ -143,8 +131,6 @@ function encryptedFiles() {
 	encryptedFile('./hexadecimal.txt');
 	encryptedFile('./base64.txt');
 }
-
-//encryptedFiles()
 
 //nivel 3, ejercicio 1, parte 3
 
@@ -193,4 +179,15 @@ function decryptedFiles(){
 	decryptedFile('./base64.txt', './myFile_copy_2.txt')
 }
 
-decryptedFiles()
+function start(){
+    //createFile('./myFile.txt', 'Buenos dias')
+    //readFile()
+    //compressFile()
+    //printRecursive()
+    //listDirectory()
+    //encodedFiles()
+    //encryptedFiles()
+    //decryptedFiles()
+}
+
+start()
