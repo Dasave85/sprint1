@@ -9,25 +9,14 @@ function myPromise(num, expected){
         }
 })
 }
-const prueba = myPromise(5, 5)
 
-prueba
-.then(function(message){
-    console.log(message)
-})
-.catch(function(err){
-    console.log(err)
-})
+myPromise(5, 5)
+.then(message => console.log(message))
+.catch(err => console.log(err))
 
-const prueba2 = myPromise(2, 6)
-
-prueba2
-.then(function(message){
-    console.log(message)
-})
-.catch(function(err){
-    console.log(err.message)
-})
+myPromise(2, 6)
+.then(message => console.log(message))
+.catch(err => console.log(err.message))
  
 
 //nivel 1, ejercicio 2
@@ -90,17 +79,17 @@ const getEmployee = (num) =>{
      })
 }
 
- getEmployee(2)
+getEmployee(2)
 .then(value=> { console.log(value)})
 .catch(err => { console.log (err.message)}) 
-
+ 
 //nivel 2, ejercicio 2
 
-const getSalary = (employe) => {
+const getSalary = (employeeObj) => {
     return new Promise((resolve, reject) =>{
         let salaryEmploye
         for (let salary of salaries){
-            if(salary.id === employe.id){
+            if(salary.id === employeeObj.id){
                 salaryEmploye = salary.salary
             }
         }
@@ -112,26 +101,27 @@ const getSalary = (employe) => {
     })
 }
 
- getSalary(salaries[1])
+getSalary(employees[1])
 .then(salary => console.log(salary))
 .catch(err => console.log(err.message))  
-
+ 
 //nivel 2, ejercicio 3
 
 getEmployee(2)
 .then(employee => {
-    console.log(employee.name)
-    return getSalary(employee)})
-.then(salary => {
-    console.log(salary)
-}).catch(err => console.log(err.message))
+    console.log(employee.name);
+getSalary(employee)
+.then(salary => console.log(salary))
+.catch(err => console.log(err.message))
+})
+
 
 //nivel 3, ejercicio 1
 
 getEmployee(5)
 .then(employee => {
     console.log(employee.name)
-    return getSalary(employee)})
-.then(salary => {
-    console.log(salary)
-}).catch(err => console.log(err))  
+getSalary(employee)
+.then(salary => console.log(salary))
+.catch(err => console.log(err))
+}) 
