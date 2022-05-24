@@ -80,13 +80,13 @@ function getDate() {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			const date = new Date();
-			resolve(console.log(date.toDateString()));
+			resolve(date.toDateString());
 		}, 2000);
 	});
 }
 
 async function date() {
-	await getDate();
+	console.log(await getDate());
 }
 
 date();
