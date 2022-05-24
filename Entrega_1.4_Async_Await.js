@@ -113,5 +113,6 @@ addDoubles(1, 2, 3);
 //nivel 3,  ejercicio 1
 
 getEmployee(4).catch((err) => console.log(err));
-getSalary(3).catch((err) => console.log(err));
+getSalary(3).catch((err) => console.log(err)); 
 employeeData('hola')
+addDoubles(' ', 6)
