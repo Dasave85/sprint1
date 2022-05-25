@@ -125,3 +125,5 @@ getSalary(employee)
 .then(salary => console.log(salary))
 .catch(err => console.log(err.message))
 }).catch(err => console.log(err.message)) 
+
+module.exports = { getEmployee, getSalary }
