@@ -70,15 +70,26 @@ describe('test Async Await nivel 2 ejercicio 1', () =>{
 })
 
 
-describe('test Async Await nivel 2 ej.1 con Jest Fake Timers', ()=>{
-    test('deberia retornar el doble del valor que se le pasa',  () =>{
-        
-        
-        double(2).then(value => expect(value).toBe(4));
-        
-        
-    })
+describe('test Async Await nivel 2 ej.1 con Jest Fake Timers', () => {
+	test('double(), useFakeTimers', () => {
+		jest.useFakeTimers();
+		jest.spyOn(global, 'setTimeout');
+
+		double();
+		expect(setTimeout).toHaveBeenCalledTimes(1);
+		expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 2000);
+	});
+
+	test('addDoubles(), useFakeTimers', () => {
+		jest.useFakeTimers();
+		jest.spyOn(global, 'setTimeout');
+
+		addDoubles();
+		expect(setTimeout).toHaveBeenCalledTimes(1);
+		expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 2000);
+	});
 });
+    
 
     
     

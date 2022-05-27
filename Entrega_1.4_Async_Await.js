@@ -76,7 +76,7 @@ employeeData(2).then(value => console.log(value));
 
 //nivel 1, ejercicio 2
 
-function getDate() {
+/* function getDate() {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			const date = new Date();
@@ -89,7 +89,7 @@ async function date() {
 	console.log(await getDate());
 }
 
-date();
+date(); */
 
 //nivel 2, ejercicio 1
 
