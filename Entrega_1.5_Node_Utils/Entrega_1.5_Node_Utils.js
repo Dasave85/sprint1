@@ -1,6 +1,6 @@
 const fs = require('fs');
 //const archiver = require('archiver');
-var zlib = require('zlib');
+const zlib = require('zlib');
 const { exec } = require('child_process');
 const os = require('os');
 const crypto = require('crypto');
@@ -36,7 +36,7 @@ function readFile() {
 
 function compressFile() {
 	fs.createReadStream('./myFile.txt').pipe(zlib.createGzip()).pipe(fs.createWriteStream('./myFile.txt.gz'));
-	console.log('File Compressed.');
+	console.log('Archivo comprimido.');
 }
 
 //nivel 2, ejercicio 1
