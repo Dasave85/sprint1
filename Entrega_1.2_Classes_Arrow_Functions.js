@@ -37,34 +37,19 @@ class Animal {
         throw new Error("Abstract classes can't be instantiated.");
       }
     }
+}
+function createObj(){
+function Obj(){
   
-    say() {
-      throw new Error("Method 'say()' must be implemented.");
-    }
-}
-
-function createObj(name, tipo){
-    const Obj = function() {
-    Animal.apply(this, arguments);
-    
 };
-Obj.prototype = Object.create(Animal.prototype);
-Obj.prototype.constructor = Obj;
-Obj.prototype.name = name
-Obj.prototype.say = function() {
-    console.log(tipo);
-}
-    return Obj
+
+Obj.prototype = Object.create(Animal.prototype, {constructor : {value : Animal}});
+
+const bird = new Obj()
+return bird
 }
 
-const dog = createObj('roy','guau')
-console.log(dog.prototype.name)
-dog.prototype.say()
 
-const cat = createObj('misha', 'miau')
-console.log(cat.prototype.name)
-cat.prototype.say()
-
-const bird = createObj('piolin', 'piu piu')
-console.log(bird.prototype.name)
-bird.prototype.say()
+const bird = createObj()
+console.log(bird)
+console.log(bird instanceof Animal)
