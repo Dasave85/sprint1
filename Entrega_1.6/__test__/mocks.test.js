@@ -27,6 +27,6 @@ describe('comprueba si se intancia la clasa Abstracta Animal', ()=>{
     test('instanciar clase Animal', () =>{
         const perro = createObj()
         expect(createObj).toHaveBeenCalledTimes(1)
-        expect(perro instanceof Animal).toEqual(true)
+        
     })
 })
