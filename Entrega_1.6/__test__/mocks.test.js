@@ -1,5 +1,5 @@
-const {Persona} = require('./class')
-jest.mock('./class')
+const {Persona} = require('../app/class')
+jest.mock('../app/class')
 beforeEach(() => {
     // Clear all instances and calls to constructor and all methods:
     Persona.mockClear();
@@ -20,8 +20,8 @@ describe('comprueba si se intancia la class persona y su metodo', ()=>{
     }) 
 })
 
-const { Animal , createObj } = require('./class_abstract')
-jest.mock('./class_abstract')
+const { Animal , createObj } = require('../app/class_abstract')
+jest.mock('../app/class_abstract')
 
 describe('comprueba si se intancia la clasa Abstracta Animal', ()=>{
     test('instanciar clase Animal', () =>{
